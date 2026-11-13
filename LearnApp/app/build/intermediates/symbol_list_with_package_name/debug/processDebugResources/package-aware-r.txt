@@ -3068,6 +3068,7 @@ id action_bar_subtitle
 id action_bar_title
 id action_container
 id action_context_bar
+id action_delete
 id action_divider
 id action_image
 id action_menu_divider
@@ -3075,7 +3076,10 @@ id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
+id action_reimport
+id action_stats
 id action_text
+id action_tip
 id actions
 id activity_chooser_view_content
 id add
@@ -3101,10 +3105,11 @@ id bottom
 id bounce
 id btnBack
 id btnDelete
+id btnEmoji
+id btnMore
 id btnPlus
 id btnRefresh
-id btnSend
-id btnStats
+id btnVoice
 id bubbleBot
 id bubbleSys
 id bubbleUser
@@ -3223,6 +3228,7 @@ id inward
 id is_pooling_container_tag
 id italic
 id item_touch_helper_previous_elevation
+id ivZoom
 id jumpToEnd
 id jumpToStart
 id labeled
@@ -3604,6 +3610,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_chat
+layout activity_image
 layout activity_main
 layout activity_stats
 layout custom_dialog
@@ -3689,6 +3696,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+menu menu_chat
 mipmap ic_launcher
 plurals mtrl_badge_content_description
 string abc_action_bar_home_description

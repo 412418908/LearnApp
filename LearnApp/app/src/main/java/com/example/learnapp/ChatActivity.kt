@@ -7,10 +7,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayDeque
@@ -23,16 +24,15 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var panel: View
     private lateinit var adapter: MsgAdapter
 
-    /** 消息模型：bot 的题目/答案（HTML）或普通文本；user 的指令 */
     data class Msg(
         val role: String,            // bot / user / sys
-        val text: String? = null,    // 纯文本
-        val html: String? = null,    // HTML 内容
-        val qid: String? = null      // 关联题目 id
+        val text: String? = null,
+        val html: String? = null,
+        val qid: String? = null
     )
 
     private val msgs = mutableListOf<Msg>()
-    private val queue = ArrayDeque<String>()       // 待出题队列（questionId）
+    private val queue = ArrayDeque<String>()
     private var currentQid: String? = null
     private var round = 1
 
@@ -52,19 +52,34 @@ class ChatActivity : AppCompatActivity() {
         input = findViewById(R.id.etInput)
         panel = findViewById(R.id.quickPanel)
 
-        findViewById<View>(R.id.btnSend).setOnClickListener { onSend() }
+        findViewById<TextView>(R.id.tvChatTitle).apply {
+            text = session.key
+            setOnLongClickListener {
+                session.statsText().also { Toast.makeText(this@ChatActivity, it, Toast.LENGTH_LONG).show() }
+                true
+            }
+        }
+
+        findViewById<View>(R.id.btnBack).setOnClickListener { finish() }
+        findViewById<View>(R.id.btnMore).setOnClickListener { showMore(it) }
+        findViewById<View>(R.id.btnVoice).setOnClickListener {
+            Toast.makeText(this, "长按说话（示意）", Toast.LENGTH_SHORT).show()
+        }
+        findViewById<View>(R.id.btnEmoji).setOnClickListener {
+            Toast.makeText(this, "表情（示意）", Toast.LENGTH_SHORT).show()
+        }
         findViewById<View>(R.id.btnPlus).setOnClickListener {
             panel.visibility = if (panel.visibility == View.VISIBLE) View.GONE else View.VISIBLE
         }
-        findViewById<View>(R.id.btnStats).setOnClickListener {
-            startActivity(Intent(this, StatsActivity::class.java).putExtra("key", key))
+
+        input.setOnEditorActionListener { _, _, _ ->
+            onSend(); true
         }
-        findViewById<View>(R.id.btnBack).setOnClickListener { finish() }
 
         quickButtons()
 
-        // 手势：向左滑动 -> 下一题
-        val detector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+        // 向左滑动 → 下一题（作用于 bot 气泡所在区域）
+        val flingDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onFling(e1: MotionEvent?, e2: MotionEvent, vx: Float, vy: Float): Boolean {
                 if (e1 != null && (e2.x - e1.x) < -200 && kotlin.math.abs(vx) > 800 &&
                     kotlin.math.abs(e2.y - e1.y) < 300) {
@@ -74,12 +89,47 @@ class ChatActivity : AppCompatActivity() {
                 return false
             }
         })
-        rv.setOnTouchListener { _, e -> detector.onTouchEvent(e); false }
+        rv.setOnTouchListener { _, e ->
+            flingDetector.onTouchEvent(e)
+            false
+        }
 
-        // 初始化队列：未归档的题，按顺序
         refillQueue(true)
-        postText("bot", "第 $round 轮开始，共 ${queue.size} 题。向左滑动或输入指令操作。")
+        postText("bot", "第 $round 轮开始，共 ${queue.size} 题。向左滑下一题。双击当前题目 = 看答案。")
         nextQuestion()
+    }
+
+    private fun showMore(anchor: View) {
+        PopupMenu(this, anchor).apply {
+            menuInflater.inflate(R.menu.menu_chat, menu)
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.action_stats -> {
+                        startActivity(Intent(this@ChatActivity, StatsActivity::class.java)
+                            .putExtra("key", session.key))
+                    }
+                    R.id.action_delete -> {
+                        SessionManager.delete(this@ChatActivity, session)
+                        Toast.makeText(this@ChatActivity, "已删除会话", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    R.id.action_reimport -> {
+                        SessionManager.reimport(this@ChatActivity, "${session.key}.zip")
+                        Toast.makeText(this@ChatActivity, "已重新导入", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    R.id.action_tip -> {
+                        Toast.makeText(
+                            this@ChatActivity,
+                            "双击 bot 气泡 = 看答案\n左滑 = 下一题\n+ = 快捷按钮\n输入：搞定 / 答错了 / 下一题",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+                true
+            }
+            show()
+        }
     }
 
     private fun quickButtons() {
@@ -90,7 +140,7 @@ class ChatActivity : AppCompatActivity() {
             "下一题" to { onNextQuestion() },
             "统计" to { startActivity(Intent(this, StatsActivity::class.java).putExtra("key", session.key)) }
         )
-        val row = panel.findViewById<android.widget.LinearLayout>(R.id.quickRow)
+        val row = panel.findViewById<LinearLayout>(R.id.quickRow)
         row.removeAllViews()
         for ((label, action) in defs) {
             val btn = layoutInflater.inflate(R.layout.item_quickbtn, row, false) as TextView
@@ -104,7 +154,9 @@ class ChatActivity : AppCompatActivity() {
         val t = input.text.toString().trim()
         if (t.isEmpty()) return
         input.setText("")
-        msgs.add(Msg("user", text = t)); adapter.notifyItemInserted(msgs.size - 1); scrollEnd()
+        msgs.add(Msg("user", text = t))
+        adapter.notifyItemInserted(msgs.size - 1)
+        scrollEnd()
         val cmd = when {
             t.contains("答案") -> "答案"
             t.contains("搞定") || t.contains("通过") -> "搞定"
@@ -113,16 +165,13 @@ class ChatActivity : AppCompatActivity() {
             t.contains("统计") -> "统计"
             else -> null
         }
-        if (cmd == null) {
-            postText("sys", "可用指令：答案 / 搞定 / 答错了 / 下一题 / 统计")
-        } else onCommand(cmd)
+        if (cmd == null) postText("sys", "可用指令：答案 / 搞定 / 答错了 / 下一题 / 统计")
+        else onCommand(cmd)
     }
 
     private fun onCommand(cmd: String) {
         when (cmd) {
-            "答案" -> {
-                if (currentQ() == null) postText("sys", "当前没有题目") else showAnswer()
-            }
+            "答案" -> if (currentQ() == null) postText("sys", "当前没有题目") else showAnswer()
             "搞定" -> {
                 val id = currentQid
                 if (id == null) { postText("sys", "当前没有题目"); return }
@@ -136,7 +185,7 @@ class ChatActivity : AppCompatActivity() {
                 if (id == null) { postText("sys", "当前没有题目"); return }
                 val s = session.statusOf(id)
                 s.errorCount++
-                queue.addLast(id)   // 进入候选，本轮稍后再出
+                queue.addLast(id)
                 session.saveProgress()
                 postText("sys", "❌ 已记录（错误 ${s.errorCount} 次），进入候选")
                 nextQuestion()
@@ -152,7 +201,6 @@ class ChatActivity : AppCompatActivity() {
     private fun currentQ(): Question? =
         currentQid?.let { id -> session.questions.firstOrNull { it.id == id } }
 
-    /** 下一题：跳过当前题（稍后再出） */
     private fun onNextQuestion() {
         val id = currentQid
         if (id != null && !session.statusOf(id).archived) queue.addLast(id)
@@ -162,11 +210,13 @@ class ChatActivity : AppCompatActivity() {
     private fun refillQueue(firstRound: Boolean) {
         queue.clear()
         if (firstRound) {
-            session.questions.forEach { if (!session.statusOf(it.id).archived) queue.add(it.id) }
+            session.questions.forEach {
+                if (!session.statusOf(it.id).archived) queue.add(it.id)
+            }
         } else {
             session.questions.forEach { q ->
                 val s = session.statusOf(q.id)
-                if (!s.archived) queue.add(q.id)   // 剩余未归档（含候选）
+                if (!s.archived) queue.add(q.id)
             }
         }
     }
@@ -242,6 +292,27 @@ class ChatActivity : AppCompatActivity() {
                     h.bubbleBot.visibility = View.VISIBLE
                     if (m.html != null) HtmlRender.render(this@ChatActivity, m.html, session.dir, h.tvBot)
                     else h.tvBot.text = m.text
+                    // 双击 bot 气泡 → 显示答案（仅限"题目"消息，答案消息本身不带答案 qid 的题目且已是答案）
+                    val isQuestionMessage = m.qid != null && !((m.text ?: "").contains("【答案】"))
+                    if (isQuestionMessage) {
+                        val detector = GestureDetector(this@ChatActivity,
+                            object : GestureDetector.SimpleOnGestureListener() {
+                                override fun onDoubleTap(e: MotionEvent): Boolean {
+                                    if (m.qid == currentQid) showAnswer()
+                                    return true
+                                }
+                            })
+                        // 把手势同时接到气泡和文字上
+                        val listener = View.OnTouchListener { _, ev ->
+                            detector.onTouchEvent(ev)
+                            false
+                        }
+                        h.bubbleBot.setOnTouchListener(listener)
+                        h.tvBot.setOnTouchListener(listener)
+                    } else {
+                        h.bubbleBot.setOnTouchListener(null)
+                        h.tvBot.setOnTouchListener(null)
+                    }
                 }
                 "user" -> { h.bubbleUser.visibility = View.VISIBLE; h.tvUser.text = m.text }
                 else -> { h.bubbleSys.visibility = View.VISIBLE; h.bubbleSys.text = m.text }
