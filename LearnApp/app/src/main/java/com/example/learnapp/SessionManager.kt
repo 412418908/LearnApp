@@ -143,9 +143,9 @@ object SessionManager {
                         number = o.optInt("number"),
                         type = o.optString("type"),
                         stemHtml = o.optString("stem_html"),
-                        optionsHtml = (o.optJSONArray("options_html") ?: mutableListOf()).let { arr ->
+                        optionsHtml = (o.optJSONArray("options_html")?.let { arr ->
                             (0 until arr.length()).map { arr.optString(it) }
-                        },
+                        } ?: emptyList()),
                         answerHtml = o.optString("answer_html"),
                         explanationHtml = o.optString("explanation_html")
                     )

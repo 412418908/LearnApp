@@ -4,10 +4,12 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.graphics.PixelFormat
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.Spanned
+import java.io.File
 import kotlin.concurrent.thread
 
 object HtmlRender {
@@ -25,7 +27,7 @@ object HtmlRender {
         // 文字先显示，带图版本后台加载后替换
         textView.text = Html.fromHtml(stripImgs(html), Html.FROM_HTML_MODE_LEGACY)
         thread {
-            val withImgs: Spanned = Html.fromHtml(html, imageGetter, null, Html.FROM_HTML_MODE_LEGACY)
+            val withImgs: Spanned = Html.fromHtml(html, imageGetter, null)
             textView.post { textView.text = withImgs }
         }
     }
@@ -52,6 +54,7 @@ object HtmlRender {
         override fun draw(c: Canvas) {}
         override fun setAlpha(a: Int) {}
         override fun setColorFilter(cf: android.graphics.ColorFilter?) {}
+        override fun getOpacity(): Int = PixelFormat.TRANSPARENT
     }.apply { setBounds(0, 0, 1, 1) }
 
     private fun stripImgs(html: String): String =

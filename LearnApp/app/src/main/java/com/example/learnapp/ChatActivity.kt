@@ -222,10 +222,9 @@ class ChatActivity : AppCompatActivity() {
         inner class VH(v: View) : RecyclerView.ViewHolder(v) {
             val bubbleBot: View = v.findViewById(R.id.bubbleBot)
             val bubbleUser: View = v.findViewById(R.id.bubbleUser)
-            val bubbleSys: View = v.findViewById(R.id.bubbleSys)
+            val bubbleSys: TextView = v.findViewById(R.id.bubbleSys)
             val tvBot: TextView = v.findViewById(R.id.tvBot)
             val tvUser: TextView = v.findViewById(R.id.tvUser)
-            val tvSys: TextView = v.findViewById(R.id.tvSys)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH =
@@ -245,7 +244,7 @@ class ChatActivity : AppCompatActivity() {
                     else h.tvBot.text = m.text
                 }
                 "user" -> { h.bubbleUser.visibility = View.VISIBLE; h.tvUser.text = m.text }
-                else -> { h.bubbleSys.visibility = View.VISIBLE; h.tvSys.text = m.text }
+                else -> { h.bubbleSys.visibility = View.VISIBLE; h.bubbleSys.text = m.text }
             }
         }
     }
