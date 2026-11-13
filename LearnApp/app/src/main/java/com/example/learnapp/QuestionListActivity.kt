@@ -126,7 +126,14 @@ class QuestionListActivity : AppCompatActivity() {
         override fun onBindViewHolder(h: QuestionViewHolder, pos: Int) {
             val q = visibleQuestions[pos]
             h.index.text = "${session.questions.indexOf(q) + 1}"
-            h.title.text = "第 ${q.number} 题"
+            val plain = android.text.Html.fromHtml(
+                q.stemHtml.replace(Regex("<img[^>]*>"), "［图］"),
+                android.text.Html.FROM_HTML_MODE_LEGACY
+            ).toString().trim()
+                .replace(Regex("\\s+"), " ")   // 合并多空白
+                .trim('。', '.', '?', '？')    // 末尾标点去掉让列表更简洁
+            val title = if (plain.length > 42) plain.substring(0, 42) + "…" else plain
+            h.title.text = title.ifBlank { "第 ${q.number} 题" }
             h.subtitle.text = q.section
             val st = session.statusOf(q.id)
             if (st.skipped) {
