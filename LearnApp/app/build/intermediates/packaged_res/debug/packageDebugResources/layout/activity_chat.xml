@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="#EDEDED">
+
+    <!-- 标题栏（WeChat style 白底灰条） -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+        android:background="#EDEDED" android:gravity="center_vertical"
+        android:orientation="horizontal" android:paddingHorizontal="8dp">
+        <TextView android:id="@+id/btnBack" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="‹"
+            android:textColor="#000000" android:textSize="26sp" android:padding="6dp" />
+        <TextView android:id="@+id/tvChatTitle" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#000000" android:textSize="17sp" android:textStyle="bold"
+            android:maxLines="1" android:ellipsize="end" />
+        <TextView android:id="@+id/btnMore" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="⋯"
+            android:textColor="#000000" android:textSize="24sp" android:padding="10dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChat" android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1"
+        android:padding="0dp" android:clipToPadding="false" />
+
+    <!-- 快捷面板：＋ 展开 -->
+    <LinearLayout android:id="@+id/quickPanel"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:visibility="gone" android:background="#F7F7F7">
+        <LinearLayout android:id="@+id/quickRow"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:padding="8dp" />
+    </LinearLayout>
+
+    <!-- 输入栏：WeChat 风格 -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:background="#F7F7F7" android:padding="6dp">
+
+        <!-- 语音图标 -->
+        <TextView android:id="@+id/btnVoice" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="🎤"
+            android:textSize="22sp" android:padding="6dp" />
+
+        <EditText android:id="@+id/etInput" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:background="@drawable/edit_bg" android:padding="10dp"
+            android:textSize="15sp" android:maxLines="3"
+            android:minHeight="36dp" android:inputType="textMultiLine" />
+
+        <!-- 表情图标 -->
+        <TextView android:id="@+id/btnEmoji" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="😊"
+            android:textSize="22sp" android:padding="6dp" />
+
+        <!-- ＋ 图标 -->
+        <TextView android:id="@+id/btnPlus" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="＋"
+            android:textSize="24sp" android:textColor="#333333" android:padding="6dp" />
+    </LinearLayout>
+</LinearLayout>

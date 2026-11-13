@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">刷题聊天</string>
+    <style name="Theme.LearnApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">#06AD56</item>
+    </style>
+</resources>

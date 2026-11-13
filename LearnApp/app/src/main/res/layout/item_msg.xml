@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingVertical="5dp">
+
+    <!-- bot 消息：左侧 -->
+    <LinearLayout android:id="@+id/bubbleBot"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="start" android:orientation="horizontal"
+        android:visibility="gone">
+        <TextView android:layout_width="36dp" android:layout_height="36dp"
+            android:background="#07C160" android:text="🤖" android:textSize="18sp"
+            android:gravity="center" />
+        <TextView android:id="@+id/tvBot"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginStart="6dp" android:background="@drawable/bubble_white"
+            android:padding="10dp" android:textSize="15sp" android:textColor="#333333"
+            android:maxWidth="310dp" />
+    </LinearLayout>
+
+    <!-- user 消息：右侧 -->
+    <LinearLayout android:id="@+id/bubbleUser"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="end" android:orientation="horizontal"
+        android:visibility="gone">
+        <TextView android:id="@+id/tvUser"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp" android:background="@drawable/bubble_green"
+            android:padding="10dp" android:textSize="15sp" android:textColor="#FFFFFF"
+            android:maxWidth="260dp" />
+        <TextView android:layout_width="36dp" android:layout_height="36dp"
+            android:background="#5B7BFF" android:text="我" android:textSize="16sp"
+            android:textColor="#FFFFFF" android:gravity="center" />
+    </LinearLayout>
+
+    <!-- 系统提示：居中 -->
+    <TextView android:id="@+id/bubbleSys" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
+        android:visibility="gone" android:background="#E0E0E0"
+        android:paddingHorizontal="12dp" android:paddingVertical="4dp"
+        android:textSize="12sp" android:textColor="#666666"
+        android:layout_marginTop="4dp" />
+</FrameLayout>
