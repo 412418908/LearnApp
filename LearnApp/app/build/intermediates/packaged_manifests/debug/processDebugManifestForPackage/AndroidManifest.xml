@@ -43,8 +43,7 @@
             android:exported="false" />
         <activity
             android:name="com.example.learnapp.ImageActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+            android:exported="false" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

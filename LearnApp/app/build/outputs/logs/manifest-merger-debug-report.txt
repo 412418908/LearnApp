@@ -122,11 +122,9 @@ ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:19:9-76
 	android:name
 		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:19:19-48
 activity#com.example.learnapp.ImageActivity
-ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:20:9-141
+ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:20:9-76
 	android:exported
 		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:20:49-73
-	android:theme
-		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:20:74-138
 	android:name
 		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:20:19-48
 uses-sdk
