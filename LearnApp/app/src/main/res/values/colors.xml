@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- WeChat 配色 -->
+    <color name="wechat_green">#07C160</color>
+    <color name="wechat_green_dark">#06AD56</color>
+    <color name="list_bg">#FFFFFF</color>
+    <color name="page_bg">#EDEDED</color>
+    <color name="bubble_bg">#FFFFFF</color>
+    <color name="bubble_stroke">#D9D9D9</color>
+    <color name="bubble_right">#95EC69</color>          <!-- WeChat 绿气泡 -->
+    <color name="bubble_right_text">#000000</color>
+    <color name="bubble_left_text">#191919</color>
+    <color name="text_primary">#191919</color>
+    <color name="text_secondary">#5C5C5C</color>
+    <color name="text_time">#999999</color>
+    <color name="divider">#E5E5E5</color>
+    <color name="nav_bar">#F7F7F7</color>
+    <color name="swipe_action">#FA5151</color>          <!-- 删除按钮红 -->
+    <color name="swipe_action_alt">#FF9500</color>      <!-- 后续按钮橙 -->
+</resources>

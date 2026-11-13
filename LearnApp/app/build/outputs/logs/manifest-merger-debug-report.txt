@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:2:1-21:12
+ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:2:1-22:12
 MERGED from [com.google.android.material:material:1.12.0] /root/.gradle/caches/transforms-4/30dbe09adc47a6fa3161e128d9fbb6b2/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat-resources:1.7.0] /root/.gradle/caches/transforms-4/e97b8fec522e0237fe171c43b96f412b/transformed/appcompat-resources-1.7.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /root/.gradle/caches/transforms-4/3284b1fe802a3f384d6e1862779d2989/transformed/constraintlayout-2.0.1/AndroidManifest.xml:2:1-11:12
@@ -55,8 +55,8 @@ MERGED from [androidx.print:print:1.0.0] /root/.gradle/caches/transforms-4/ffc1b
 	xmlns:android
 		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:2:11-69
 application
-ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:4:5-20:19
-INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:4:5-20:19
+ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:4:5-21:19
+INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:4:5-21:19
 MERGED from [com.google.android.material:material:1.12.0] /root/.gradle/caches/transforms-4/30dbe09adc47a6fa3161e128d9fbb6b2/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /root/.gradle/caches/transforms-4/30dbe09adc47a6fa3161e128d9fbb6b2/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /root/.gradle/caches/transforms-4/3284b1fe802a3f384d6e1862779d2989/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
@@ -103,26 +103,32 @@ category#android.intent.category.LAUNCHER
 ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:14:17-77
 	android:name
 		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:14:27-74
+activity#com.example.learnapp.QuestionListActivity
+ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:17:9-83
+	android:exported
+		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:17:56-80
+	android:name
+		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:17:19-55
 activity#com.example.learnapp.ChatActivity
-ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:17:9-75
+ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:18:9-75
 	android:exported
-		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:17:48-72
+		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:18:48-72
 	android:name
-		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:17:19-47
+		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:18:19-47
 activity#com.example.learnapp.StatsActivity
-ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:18:9-76
-	android:exported
-		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:18:49-73
-	android:name
-		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:18:19-48
-activity#com.example.learnapp.ImageActivity
-ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:19:9-141
+ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:19:9-76
 	android:exported
 		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:19:49-73
-	android:theme
-		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:19:74-138
 	android:name
 		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:19:19-48
+activity#com.example.learnapp.ImageActivity
+ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:20:9-141
+	android:exported
+		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:20:49-73
+	android:theme
+		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:20:74-138
+	android:name
+		ADDED from /workspace/LearnApp/app/src/main/AndroidManifest.xml:20:19-48
 uses-sdk
 INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /workspace/LearnApp/app/src/main/AndroidManifest.xml

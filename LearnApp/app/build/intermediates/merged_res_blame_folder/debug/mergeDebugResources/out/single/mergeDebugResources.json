@@ -4,16 +4,84 @@
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/activity_chat.xml"
     },
     {
-        "merged": "com.example.learnapp-debug-32:/layout_activity_image.xml.flat",
-        "source": "com.example.learnapp-main-34:/layout/activity_image.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_activity_image.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/activity_image.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_6.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_6.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_8.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_8.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_msg.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_msg.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_question.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_question.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_2.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_2.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_9.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_9.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_bubble_green.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/bubble_green.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_1.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_1.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_fallback.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_fallback.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_4.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_4.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_activity_stats.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/activity_stats.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_bubble_right.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_bubble_right.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_bubble_left.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_bubble_left.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_quickbtn.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_quickbtn.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_base_layout.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/base_layout.jpg"
     },
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_edit_bg.xml.flat",
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/edit_bg.xml"
     },
     {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_chat_layout.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/chat_layout.jpg"
+    },
+    {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_activity_main.xml.flat",
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_bubble_received.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/bubble_received.xml"
     },
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_stat.xml.flat",
@@ -24,32 +92,32 @@
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_3.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_3.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_7.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_7.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/menu_menu_chat.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/menu/menu_chat.xml"
+    },
+    {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_session.xml.flat",
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_session.xml"
     },
     {
-        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_msg.xml.flat",
-        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_msg.xml"
-    },
-    {
-        "merged": "com.example.learnapp-debug-32:/menu_menu_chat.xml.flat",
-        "source": "com.example.learnapp-main-34:/menu/menu_chat.xml"
-    },
-    {
-        "merged": "com.example.learnapp-debug-32:/layout_activity_main.xml.flat",
-        "source": "com.example.learnapp-main-34:/layout/activity_main.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_bubble_sent.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/bubble_sent.xml"
     },
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_ic_launcher_bg.xml.flat",
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/ic_launcher_bg.xml"
     },
     {
-        "merged": "com.example.learnapp-debug-32:/layout_activity_chat.xml.flat",
-        "source": "com.example.learnapp-main-34:/layout/activity_chat.xml"
-    },
-    {
-        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_bubble_green.xml.flat",
-        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/bubble_green.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_bank.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_bank.xml"
     },
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_ic_launcher_fg.xml.flat",
@@ -60,15 +128,27 @@
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/bubble_white.xml"
     },
     {
-        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_activity_stats.xml.flat",
-        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/activity_stats.xml"
+        "merged": "com.example.learnapp-debug-32:/layout_item_bubble_left.xml.flat",
+        "source": "com.example.learnapp-main-34:/layout/item_bubble_left.xml"
     },
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_btn_quick.xml.flat",
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/btn_quick.xml"
     },
     {
-        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_quickbtn.xml.flat",
-        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_quickbtn.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_my_avatar.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/my_avatar.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_5.jpg.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_5.jpg"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_activity_questions.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/activity_questions.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_center.xml.flat",
+        "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/layout/item_center.xml"
     }
 ]

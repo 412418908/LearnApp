@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="bubble_bg">#FFFFFF</color>
+    <color name="bubble_left_text">#191919</color>
+    <color name="bubble_right">#95EC69</color>
+    <color name="bubble_right_text">#000000</color>
+    <color name="bubble_stroke">#D9D9D9</color>
+    <color name="divider">#E5E5E5</color>
+    <color name="list_bg">#FFFFFF</color>
+    <color name="nav_bar">#F7F7F7</color>
+    <color name="page_bg">#EDEDED</color>
+    <color name="swipe_action">#FA5151</color>
+    <color name="swipe_action_alt">#FF9500</color>
+    <color name="text_primary">#191919</color>
+    <color name="text_secondary">#5C5C5C</color>
+    <color name="text_time">#999999</color>
+    <color name="wechat_green">#07C160</color>
+    <color name="wechat_green_dark">#06AD56</color>
+    <dimen name="avatar_chat">40dp</dimen>
+    <dimen name="avatar_list">48dp</dimen>
+    <dimen name="avatar_margin">12dp</dimen>
+    <dimen name="bubble_max_w">300dp</dimen>
+    <dimen name="bubble_padding_h">12dp</dimen>
+    <dimen name="bubble_padding_v">8dp</dimen>
+    <dimen name="bubble_radius">6dp</dimen>
+    <dimen name="chat_text">16sp</dimen>
+    <dimen name="item_height">72dp</dimen>
+    <dimen name="subtitle_text">14sp</dimen>
+    <dimen name="time_text">12sp</dimen>
+    <dimen name="title_height">44dp</dimen>
+    <dimen name="title_padding">16dp</dimen>
+    <dimen name="title_text">17sp</dimen>
     <string name="app_name">刷题聊天</string>
     <style name="Theme.LearnApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">#06AD56</item>
+        <item name="android:windowBackground">@color/page_bg</item>
+        <item name="android:statusBarColor">@color/wechat_green</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

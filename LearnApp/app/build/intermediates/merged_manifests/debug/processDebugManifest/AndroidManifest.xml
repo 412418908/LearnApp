@@ -33,6 +33,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.learnapp.QuestionListActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.learnapp.ChatActivity"
             android:exported="false" />
         <activity

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 题目列表项：左滑露出 后续 + 删除 两个按钮 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="64dp"
+    android:background="@color/list_bg">
+
+    <!-- 左滑露出区：后面是红色删除，前面是橙色后续 -->
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end" android:orientation="horizontal">
+        <TextView android:id="@+id/tvSwipeLater" android:layout_width="88dp"
+            android:layout_height="match_parent" android:gravity="center"
+            android:background="@color/swipe_action_alt"
+            android:text="后续" android:textColor="#FFFFFF" android:textSize="15sp" />
+        <TextView android:id="@+id/tvSwipeDelete" android:layout_width="88dp"
+            android:layout_height="match_parent" android:gravity="center"
+            android:background="@color/swipe_action"
+            android:text="删除" android:textColor="#FFFFFF" android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/content"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="horizontal" android:paddingHorizontal="16dp"
+        android:gravity="center_vertical" android:background="@color/list_bg">
+
+        <!-- 题号圆圈 -->
+        <TextView android:id="@+id/tvIndex"
+            android:layout_width="32dp" android:layout_height="32dp"
+            android:background="@drawable/avatar_fallback"
+            android:gravity="center"
+            android:textColor="#FFFFFF" android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical"
+            android:paddingHorizontal="12dp" android:gravity="center_vertical">
+            <RelativeLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/tvStatus"
+                    android:maxLines="1" android:ellipsize="end"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" android:textStyle="bold" />
+                <TextView android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="11sp" android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:textColor="#FFFFFF" />
+            </RelativeLayout>
+            <TextView android:id="@+id/tvSubtitle"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:maxLines="1" android:ellipsize="end"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" android:layout_marginTop="2dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="0.5dp"
+        android:layout_gravity="bottom" android:layout_marginStart="60dp"
+        android:background="@color/divider" />
+</FrameLayout>

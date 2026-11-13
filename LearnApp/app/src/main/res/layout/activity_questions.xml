@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 题目列表页 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/page_bg">
+
+    <!-- 顶部返回栏 -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+        android:background="@color/list_bg" android:gravity="center_vertical"
+        android:orientation="horizontal" android:paddingHorizontal="8dp">
+        <TextView android:id="@+id/btnBack" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="‹"
+            android:textColor="@color/text_primary" android:textSize="26sp" android:padding="8dp" />
+        <TextView android:id="@+id/tvTitle" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="@color/text_primary" android:textSize="17sp"
+            android:textStyle="bold" android:gravity="center"
+            android:maxLines="1" android:ellipsize="end" />
+        <TextView android:id="@+id/btnRight" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="⋯"
+            android:textColor="@color/text_primary" android:textSize="22sp" android:padding="10dp" />
+    </LinearLayout>
+
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:background="@color/list_bg">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvQuestions"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:clipToPadding="false" />
+    </FrameLayout>
+</LinearLayout>
