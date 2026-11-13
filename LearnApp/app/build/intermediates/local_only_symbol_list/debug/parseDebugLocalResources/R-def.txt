@@ -46,10 +46,12 @@ drawable bubble_green
 drawable bubble_received
 drawable bubble_sent
 drawable bubble_white
+drawable chat_bottom_bar
 drawable chat_layout
 drawable edit_bg
 drawable ic_launcher_bg
 drawable ic_launcher_fg
+drawable main_bottom_tab
 drawable my_avatar
 id action_delete
 id action_reimport

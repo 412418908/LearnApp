@@ -215,7 +215,7 @@ class ChatActivity : AppCompatActivity() {
                     h.avatar.setImageResource(m.botAvatar)
                     if (m.html != null) HtmlRender.render(this@ChatActivity, m.html, session.dir, h.tv)
                     else h.tv.text = m.text
-                    // 双击 bot 题目 → 出答案；上滑页内容 → 下一题
+                    // 双击 bot 题目 → 出答案；上滑 → 下一题
                     if (m.kind == KIND_BOT_Q && m.qid == currentQid) {
                         val d = GestureDetector(this@ChatActivity,
                             object : GestureDetector.SimpleOnGestureListener() {
@@ -224,16 +224,20 @@ class ChatActivity : AppCompatActivity() {
                                 }
                                 override fun onFling(e1: MotionEvent?, e2: MotionEvent,
                                                      vx: Float, vy: Float): Boolean {
-                                    if (e1 != null && (e2.y - e1.y) < -100 && vy < -800) {
+                                    if (e1 != null && (e2.y - e1.y) < -120 && vy < -800) {
                                         onSwipeUpNext(); return true
                                     }
                                     return false
                                 }
                             })
-                        h.root.setOnTouchListener { _, ev ->
+                        // 同时挂在 tv（正文）和 root（气泡 padding 区）
+                        val l = View.OnTouchListener { _, ev ->
                             d.onTouchEvent(ev); false
                         }
+                        h.tv.setOnTouchListener(l)
+                        h.root.setOnTouchListener(l)
                     } else {
+                        h.tv.setOnTouchListener(null)
                         h.root.setOnTouchListener(null)
                     }
                 }

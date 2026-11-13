@@ -28,6 +28,14 @@
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_2.jpg"
     },
     {
+        "merged": "com.example.learnapp-debug-32:/layout_activity_chat.xml.flat",
+        "source": "com.example.learnapp-main-34:/layout/activity_chat.xml"
+    },
+    {
+        "merged": "com.example.learnapp-debug-32:/layout_activity_questions.xml.flat",
+        "source": "com.example.learnapp-main-34:/layout/activity_questions.xml"
+    },
+    {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_9.jpg.flat",
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_9.jpg"
     },
@@ -42,6 +50,10 @@
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_fallback.xml.flat",
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/avatar_fallback.xml"
+    },
+    {
+        "merged": "com.example.learnapp-debug-32:/drawable_chat_bottom_bar.png.flat",
+        "source": "com.example.learnapp-main-34:/drawable/chat_bottom_bar.png"
     },
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_avatar_4.jpg.flat",
@@ -112,8 +124,16 @@
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/bubble_sent.xml"
     },
     {
+        "merged": "com.example.learnapp-debug-32:/layout_activity_main.xml.flat",
+        "source": "com.example.learnapp-main-34:/layout/activity_main.xml"
+    },
+    {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_ic_launcher_bg.xml.flat",
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/ic_launcher_bg.xml"
+    },
+    {
+        "merged": "com.example.learnapp-debug-32:/drawable_main_bottom_tab.png.flat",
+        "source": "com.example.learnapp-main-34:/drawable/main_bottom_tab.png"
     },
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/layout_item_bank.xml.flat",
@@ -126,10 +146,6 @@
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_bubble_white.xml.flat",
         "source": "/root/.gradle/daemon/8.7/com.example.learnapp-main-34:/drawable/bubble_white.xml"
-    },
-    {
-        "merged": "com.example.learnapp-debug-32:/layout_item_bubble_left.xml.flat",
-        "source": "com.example.learnapp-main-34:/layout/item_bubble_left.xml"
     },
     {
         "merged": "/root/.gradle/daemon/8.7/com.example.learnapp-debug-32:/drawable_btn_quick.xml.flat",

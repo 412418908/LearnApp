@@ -2952,6 +2952,7 @@ drawable bubble_green
 drawable bubble_received
 drawable bubble_sent
 drawable bubble_white
+drawable chat_bottom_bar
 drawable chat_layout
 drawable design_fab_background
 drawable design_ic_visibility
@@ -2991,6 +2992,7 @@ drawable m3_tabs_background
 drawable m3_tabs_line_indicator
 drawable m3_tabs_rounded_line_indicator
 drawable m3_tabs_transparent_background
+drawable main_bottom_tab
 drawable material_cursor_drawable
 drawable material_ic_calendar_black_24dp
 drawable material_ic_clear_black_24dp

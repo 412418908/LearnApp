@@ -45,6 +45,7 @@ class QuestionListActivity : AppCompatActivity() {
         visibleQuestions = session.questions.filter { !session.statusOf(it.id).archived &&
                 !session.statusOf(it.id).removed }.toMutableList()
         adapter.notifyDataSetChanged()
+        rv.post { rv.scrollToPosition(0) }   // 强制回到顶部
     }
 
     /** 移除题目（彻底删除，不再显示） */

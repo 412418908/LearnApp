@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.PixelFormat
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -20,44 +17,56 @@ import android.widget.TextView
 import java.io.File
 import kotlin.concurrent.thread
 
-/** 纯 ClickableSpan，负责把图片点进全屏预览。它和 ImageSpan 同时挂在同一段字符上。 */
+/** 决定图片磁盘路径（兼容多种 zip 结构） */
+private fun resolveImageFile(sessionDir: File, src: String): File? {
+    val clean = src.trim().removePrefix("./").removePrefix("/")
+    val candidates = listOf(
+        File(sessionDir, "build/$clean"),
+        File(sessionDir, clean),
+        File(sessionDir.parentFile!!, clean),
+        File(sessionDir.parentFile!!, "build/$clean")
+    )
+    for (c in candidates) if (c.exists()) return c
+    // 最后兜底：递归搜 assets/xxx.png
+    val name = File(clean).name
+    val found = sessionDir.walkTopDown().firstOrNull { it.name == name && it.extension in listOf("png", "jpg", "jpeg", "webp", "gif") }
+    return found
+}
+
+/** 点图片 → 全屏预览 */
 private class ImageClickSpan(
-    private val src: String,
-    private val sessionDir: File
+    private val absolutePath: String
 ) : ClickableSpan() {
     override fun onClick(widget: View) {
-        val intent = Intent(widget.context, ImageActivity::class.java)
-        intent.putExtra("path", File(sessionDir, "build/${src.removePrefix("./")}").absolutePath)
-        widget.context.startActivity(intent)
+        if (absolutePath.isNotBlank()) {
+            widget.context.startActivity(
+                Intent(widget.context, ImageActivity::class.java)
+                    .putExtra("path", absolutePath)
+            )
+        }
     }
-    override fun updateDrawState(ds: TextPaint) { /* 不画下划线 */ }
+    override fun updateDrawState(ds: TextPaint) { /* no underline */ }
 }
 
 object HtmlRender {
 
     fun render(context: Context, html: String, sessionDir: File, textView: TextView) {
         val density = context.resources.displayMetrics.density
-        val maxWidth = (context.resources.displayMetrics.widthPixels - 60 * density).toInt().coerceAtLeast(200)
+        val maxW = (context.resources.displayMetrics.widthPixels - 64 * density).toInt().coerceAtLeast(200)
 
-        // 先显示"文字版"占位
+        // 先给纯文字占位（含"［图］"标记）
         textView.text = stripImgs(html)
         thread {
-            val custom = buildClickableHtml(context, html, sessionDir, maxWidth)
+            val spanned = buildRich(context, html, sessionDir, maxW)
             textView.post {
-                textView.text = custom
+                textView.text = spanned
                 textView.movementMethod = LinkMovementMethod.getInstance()
-                textView.highlightColor = 0  // 去掉选中高亮背景
+                textView.highlightColor = 0
             }
         }
     }
 
-    /** 正则切 <img src="..."> 之外的部分正常 Html.fromHtml；img 本身塞占位符 + ImageSpan + ClickableSpan */
-    private fun buildClickableHtml(
-        context: Context,
-        html: String,
-        sessionDir: File,
-        maxWidth: Int
-    ): Spanned {
+    private fun buildRich(context: Context, html: String, sessionDir: File, maxW: Int): Spanned {
         val regex = Regex("""<img[^>]*src\s*=\s*["']([^"']+)["'][^>]*>""", RegexOption.IGNORE_CASE)
         val sb = SpannableStringBuilder()
         var cursor = 0
@@ -65,15 +74,20 @@ object HtmlRender {
             val plainBefore = html.substring(cursor, m.range.first)
             sb.append(Html.fromHtml(plainBefore, Html.FROM_HTML_MODE_LEGACY))
             val src = m.groupValues[1]
-            val file = File(sessionDir, "build/${src.removePrefix("./")}")
-            val bmp = loadScaledBitmap(file, maxWidth)
+            val f = resolveImageFile(sessionDir, src)
+            val abs = f?.absolutePath ?: ""
+            val bmp = f?.let { loadScaled(it, maxW) }
             val start = sb.length
             sb.append(" ")
             if (bmp != null) {
-                val ispan = ImageSpan(context, bmp, ImageSpan.ALIGN_BASELINE)
-                val cspan = ImageClickSpan(src, sessionDir)
-                sb.setSpan(ispan, start, start + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                sb.setSpan(cspan, start, start + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                val d = BitmapDrawable(context.resources, bmp).apply {
+                    setBounds(0, 0, bmp.width, bmp.height)
+                }
+                sb.setSpan(ImageSpan(d, ImageSpan.ALIGN_BASELINE), start, start + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                sb.setSpan(ImageClickSpan(abs), start, start + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            } else {
+                // 找不到文件 —— 留个灰色占位
+                sb.setSpan(ImagePlaceholderSpan(), start, start + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
             cursor = m.range.last + 1
         }
@@ -82,21 +96,31 @@ object HtmlRender {
         return sb
     }
 
-    private fun loadScaledBitmap(file: File, maxWidth: Int): Bitmap? {
-        if (!file.exists()) return null
+    private fun loadScaled(file: File, maxW: Int): Bitmap? {
         return try {
             val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
             BitmapFactory.decodeFile(file.absolutePath, opts)
+            if (opts.outWidth <= 0) return null
             var sample = 1
-            while (opts.outWidth / (sample * 2) > maxWidth) sample *= 2
+            while (opts.outWidth / (sample * 2) > maxW) sample *= 2
             val bmp = BitmapFactory.decodeFile(file.absolutePath,
                 BitmapFactory.Options().apply { inSampleSize = sample }) ?: return null
             var w = bmp.width.toFloat(); var h = bmp.height.toFloat()
-            if (w > maxWidth) { h = h * maxWidth / w; w = maxWidth.toFloat() }
+            if (w > maxW) { h = h * maxW / w; w = maxW.toFloat() }
             Bitmap.createScaledBitmap(bmp, w.toInt().coerceAtLeast(1), h.toInt().coerceAtLeast(1), true)
         } catch (_: Exception) { null }
     }
 
     private fun stripImgs(html: String): String =
         html.replace(Regex("<img[^>]*>"), "［图］")
+}
+
+/** 找不到图片时的占位 span（画个灰色方块） */
+private class ImagePlaceholderSpan : android.text.style.ReplacementSpan() {
+    override fun draw(canvas: android.graphics.Canvas, text: CharSequence, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: android.graphics.Paint) {
+        val w = 40f; val h = 40f
+        val c = android.graphics.Paint(paint).apply { color = 0xFFDDDDDD.toInt(); style = android.graphics.Paint.Style.FILL }
+        canvas.drawRect(x, top.toFloat(), x + w, top + h, c)
+    }
+    override fun getSize(paint: android.graphics.Paint, text: CharSequence, start: Int, end: Int, fm: android.graphics.Paint.FontMetricsInt?): Int = 40
 }
