@@ -10,6 +10,7 @@
     <dimen name="subtitle_text">14sp</dimen>
     <dimen name="time_text">12sp</dimen>
     <dimen name="chat_text">16sp</dimen>
+    <dimen name="chat_content_text">10.67sp</dimen>
     <dimen name="bubble_max_w">300dp</dimen>
     <dimen name="bubble_padding_h">12dp</dimen>
     <dimen name="bubble_padding_v">8dp</dimen>

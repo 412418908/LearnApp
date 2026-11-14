@@ -111,18 +111,6 @@ class ChatActivity : AppCompatActivity() {
         nextQuestion()
     }
 
-    private fun onSwipeUpNext() {
-        // 上滑跳过，记录 errorCount++（候选），然后进下一题
-        val id = currentQid ?: return
-        session.statusOf(id).errorCount++
-        session.statusOf(id).skipped = true
-        session.saveProgress()
-        queue.addLast(id)
-        msgs.add(Msg(KIND_SYS, text = "⬆ 跳过（已记录错误次数 +1）"))
-        adapter.notifyItemInserted(msgs.size - 1); scrollEnd()
-        nextQuestion()
-    }
-
     private fun nextQuestion() {
         if (queue.isEmpty()) {
             // 全部过完，再来一轮（已经 archived 的不再进队）
@@ -215,7 +203,7 @@ class ChatActivity : AppCompatActivity() {
                     h.avatar.setImageResource(m.botAvatar)
                     if (m.html != null) HtmlRender.render(this@ChatActivity, m.html, session.dir, h.tv)
                     else h.tv.text = m.text
-                    // 双击 bot 题目 → 出答案；上滑 → 下一题
+                    // 双击 bot 题目 → 出答案；上滑 → 归档并进入下一题
                     if (m.kind == KIND_BOT_Q && m.qid == currentQid) {
                         val d = GestureDetector(this@ChatActivity,
                             object : GestureDetector.SimpleOnGestureListener() {
@@ -225,7 +213,7 @@ class ChatActivity : AppCompatActivity() {
                                 override fun onFling(e1: MotionEvent?, e2: MotionEvent,
                                                      vx: Float, vy: Float): Boolean {
                                     if (e1 != null && (e2.y - e1.y) < -120 && vy < -800) {
-                                        onSwipeUpNext(); return true
+                                        markDone(); return true
                                     }
                                     return false
                                 }

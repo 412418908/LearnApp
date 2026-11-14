@@ -19,8 +19,8 @@
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:maxWidth="@dimen/bubble_max_w"
             android:background="@drawable/bubble_received"
-            android:textColor="@color/bubble_left_text"
-            android:textSize="@dimen/chat_text"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/chat_content_text"
             android:paddingHorizontal="@dimen/bubble_padding_h"
             android:paddingVertical="@dimen/bubble_padding_v" />
     </LinearLayout>
