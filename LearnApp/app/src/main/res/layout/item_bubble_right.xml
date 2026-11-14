@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 发送消息（右侧 myicon 头像 + 绿色气泡） -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal" android:gravity="end"
+    android:paddingVertical="4dp">
+
+    <TextView android:id="@+id/tvBubble"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:maxWidth="@dimen/bubble_max_w"
+        android:background="@drawable/bubble_sent"
+        android:textColor="@color/chat_text_light"
+        android:textSize="@dimen/chat_text"
+        android:paddingHorizontal="@dimen/bubble_padding_h"
+        android:paddingVertical="@dimen/bubble_padding_v" />
+
+    <ImageView android:id="@+id/ivAvatar" android:layout_width="@dimen/avatar_chat"
+        android:layout_height="@dimen/avatar_chat" android:layout_marginStart="@dimen/avatar_margin"
+        android:scaleType="centerCrop"
+        android:background="@drawable/avatar_fallback"
+        android:src="@drawable/my_avatar" />
+</LinearLayout>

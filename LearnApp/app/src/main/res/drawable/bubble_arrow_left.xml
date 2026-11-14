@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 白气泡左侧小箭头，指向头像 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="6dp" android:height="12dp"
+    android:viewportWidth="6" android:viewportHeight="12">
+    <path android:fillColor="@color/bubble_bg" android:pathData="M6,0 L0,6 L6,12 Z" />
+</vector>

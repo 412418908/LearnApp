@@ -14,8 +14,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".QuestionListActivity" android:exported="false" />
         <activity android:name=".ChatActivity" android:exported="false" />
         <activity android:name=".StatsActivity" android:exported="false" />
-        <activity android:name=".ImageActivity" android:exported="false" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity android:name=".ImageActivity" android:exported="false" />
     </application>
 </manifest>

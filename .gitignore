@@ -1,0 +1,26 @@
+# Android / Gradle
+.gradle/
+app/build/
+build/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.log
+local.properties
+*.iml
+.idea/
+.DS_Store
+*.keystore
+*.jks
+
+# Kotlin
+*.kotlin_module
+
+# Question parser build products
+qp/question_parser/build/
+qp/question_parser/questions.db
+
+# Temp uploads
+.uploads/

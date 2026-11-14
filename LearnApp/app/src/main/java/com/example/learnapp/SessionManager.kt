@@ -21,6 +21,8 @@ data class Question(
 /** 每题的答题状态 */
 class QStatus {
     var archived = false      // 已搞定，归档不再显示
+    var removed = false       // 从题库中彻底删除
+    var skipped = false       // 后续，排到尾部
     var errorCount = 0        // 答错次数
     fun passed() = archived
     fun failed() = !archived && errorCount > 0
@@ -48,6 +50,8 @@ class Session(
                 val o = obj.getJSONObject(id)
                 val s = QStatus()
                 s.archived = o.optBoolean("archived")
+                s.removed = o.optBoolean("removed")
+                s.skipped = o.optBoolean("skipped")
                 s.errorCount = o.optInt("errors")
                 status[id] = s
             }
@@ -57,7 +61,11 @@ class Session(
     fun saveProgress() {
         val obj = JSONObject()
         for ((id, s) in status) {
-            obj.put(id, JSONObject().put("archived", s.archived).put("errors", s.errorCount))
+            obj.put(id, JSONObject()
+                .put("archived", s.archived)
+                .put("removed", s.removed)
+                .put("skipped", s.skipped)
+                .put("errors", s.errorCount))
         }
         progressFile.writeText(obj.toString())
     }
