@@ -1,7 +1,7 @@
 # Android / Gradle
 .gradle/
-/app/build/
-/build/
+app/build/
+build/
 *.apk
 *.aab
 *.ap_

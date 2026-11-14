@@ -3,7 +3,9 @@ package com.example.learnapp
 import android.content.Intent
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.VelocityTracker
 import android.view.View
+import android.view.ViewConfiguration
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -51,10 +53,10 @@ class ChatActivity : AppCompatActivity() {
 
         rv = findViewById(R.id.rvChat)
         adapter = MsgAdapter()
-        rv.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
+        rv.layoutManager = LinearLayoutManager(this)   // 默认居顶向下布局
         rv.adapter = adapter
 
-        findViewById<TextView>(R.id.tvTitle).text = session.key
+        findViewById<TextView>(R.id.tvTitle).text = getString(R.string.chat_title)
         findViewById<TextView>(R.id.btnBack).setOnClickListener { finish() }
         findViewById<TextView>(R.id.btnMore).setOnClickListener { anchor ->
             PopupMenu(this, anchor).apply {
@@ -141,7 +143,9 @@ class ChatActivity : AppCompatActivity() {
         }
         msgs.add(Msg(KIND_BOT_Q, html = html, qid = id, botAvatar = botAvatarRes))
         questionMsgPos = msgs.size - 1
-        adapter.notifyItemInserted(msgs.size - 1); scrollEnd()
+        adapter.notifyItemInserted(msgs.size - 1)
+        // 新题目顶部对齐，便于从上往下阅读
+        rv.post { rv.scrollToPosition(msgs.size - 1) }
     }
 
     private fun showAnswer() {
@@ -153,6 +157,80 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun scrollEnd() = rv.post { rv.smoothScrollToPosition(msgs.size - 1) }
+
+    /**
+     * 题目气泡手势：双击出答案；上滑（位移或快速甩动）→ 归档并进入下一题；
+     * 下滑交还列表正常滚动。
+     * 关键：DOWN 时申请父级不拦截（RecyclerView），否则垂直滑动会被列表
+     * 拦截并给气泡发 ACTION_CANCEL，onFling 永远收不到完整手势。
+     */
+    private inner class NextQuestionGesture(private val anchor: View) : View.OnTouchListener {
+        private val detector = GestureDetector(this@ChatActivity,
+            object : GestureDetector.SimpleOnGestureListener() {
+                override fun onDoubleTap(e: MotionEvent): Boolean {
+                    showAnswer(); return true
+                }
+            })
+        private val slop = ViewConfiguration.get(this@ChatActivity).scaledTouchSlop
+        private val triggerPx = 96 * resources.displayMetrics.density   // 上滑触发距离
+        private val maxPx = triggerPx * 1.6f
+        private var tracker: VelocityTracker? = null
+        private var downY = 0f
+        private var decided = false
+        private var draggingUp = false
+        private var offset = 0f
+
+        override fun onTouch(v: View, ev: MotionEvent): Boolean {
+            detector.onTouchEvent(ev)
+            val parent = anchor.parent
+            when (ev.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    tracker?.recycle()
+                    tracker = VelocityTracker.obtain()
+                    tracker?.addMovement(ev)
+                    downY = ev.y; decided = false; draggingUp = false; offset = 0f
+                    parent?.requestDisallowInterceptTouchEvent(true)
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    tracker?.addMovement(ev)
+                    val dy = ev.y - downY
+                    if (!decided) {
+                        if (dy > slop) {              // 向下拖 → 让列表正常滚动
+                            decided = true
+                            parent?.requestDisallowInterceptTouchEvent(false)
+                            return true
+                        }
+                        if (-dy > slop) { decided = true; draggingUp = true }
+                    }
+                    if (draggingUp) {
+                        offset = dy.coerceAtMost(0f).coerceAtLeast(-maxPx)
+                        anchor.translationY = offset
+                        anchor.alpha = 1f + offset / maxPx * 0.6f
+                    }
+                }
+                MotionEvent.ACTION_UP -> {
+                    tracker?.addMovement(ev)
+                    tracker?.computeCurrentVelocity(1000)
+                    val vy = tracker?.yVelocity ?: 0f
+                    val hit = draggingUp &&
+                        (-offset >= triggerPx || (vy < -1800f && -offset > slop))
+                    tracker?.recycle(); tracker = null
+                    springBack()
+                    if (hit) markDone()
+                }
+                MotionEvent.ACTION_CANCEL -> {
+                    tracker?.recycle(); tracker = null
+                    springBack()
+                }
+            }
+            return true
+        }
+
+        private fun springBack() {
+            anchor.animate().translationY(0f).alpha(1f).setDuration(150).start()
+            draggingUp = false
+        }
+    }
 
     private fun randomBotAvatar(): Int {
         val avatars = listOf(
@@ -205,25 +283,11 @@ class ChatActivity : AppCompatActivity() {
                     else h.tv.text = m.text
                     // 双击 bot 题目 → 出答案；上滑 → 归档并进入下一题
                     if (m.kind == KIND_BOT_Q && m.qid == currentQid) {
-                        val d = GestureDetector(this@ChatActivity,
-                            object : GestureDetector.SimpleOnGestureListener() {
-                                override fun onDoubleTap(e: MotionEvent): Boolean {
-                                    showAnswer(); return true
-                                }
-                                override fun onFling(e1: MotionEvent?, e2: MotionEvent,
-                                                     vx: Float, vy: Float): Boolean {
-                                    if (e1 != null && (e2.y - e1.y) < -120 && vy < -800) {
-                                        markDone(); return true
-                                    }
-                                    return false
-                                }
-                            })
+                        h.root.translationY = 0f; h.root.alpha = 1f
+                        val g = NextQuestionGesture(h.root)
                         // 同时挂在 tv（正文）和 root（气泡 padding 区）
-                        val l = View.OnTouchListener { _, ev ->
-                            d.onTouchEvent(ev); false
-                        }
-                        h.tv.setOnTouchListener(l)
-                        h.root.setOnTouchListener(l)
+                        h.tv.setOnTouchListener(g)
+                        h.root.setOnTouchListener(g)
                     } else {
                         h.tv.setOnTouchListener(null)
                         h.root.setOnTouchListener(null)

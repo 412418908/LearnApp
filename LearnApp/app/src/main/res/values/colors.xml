@@ -12,6 +12,7 @@
     <color name="bubble_left_text">#191919</color>
     <color name="text_primary">#191919</color>
     <color name="text_secondary">#5C5C5C</color>
+    <color name="chat_text_light">#999999</color>     <!-- 聊天气泡默认浅灰 -->
     <color name="text_time">#999999</color>
     <color name="divider">#E5E5E5</color>
     <color name="nav_bar">#F7F7F7</color>

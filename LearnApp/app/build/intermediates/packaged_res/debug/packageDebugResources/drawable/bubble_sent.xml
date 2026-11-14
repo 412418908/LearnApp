@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 绿气泡（发送消息） -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/bubble_right" />
-    <corners android:radius="@dimen/bubble_radius" />
-</shape>

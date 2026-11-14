@@ -61,15 +61,14 @@ object HtmlRender {
 
     /**
      * 计算图片最大允许宽度（像素）。
-     * 左侧 bot 头像 40dp + 间距 12dp + 气泡 padding 12×2dp
-     * = 总共约 88dp 要从屏幕宽里扣掉。
+     * 左侧 bot 头像 40dp + 间距 6dp + 箭头 6dp（重叠 1dp）
+     * = 总共约 51dp 要从屏幕宽里扣掉。
      * 再额外保险扣 8dp，防止 TextView 的 lineWidth 超出。
      */
     private fun calcMaxImageWidth(context: Context, textView: TextView): Int {
         val dm = context.resources.displayMetrics
         val padLr = (textView.paddingLeft + textView.paddingRight).toFloat()
-        // 气泡之外的消耗：头像 40dp + 头像间距 12dp + 右边框 12dp
-        val outsideDp = 40f + 12f + 12f
+        val outsideDp = 40f + 6f + 6f
         val safeDp = 8f
         val allowPx = dm.widthPixels - (padLr + (outsideDp + safeDp) * dm.density)
         return allowPx.toInt().coerceAtLeast(120)
@@ -133,8 +132,15 @@ object HtmlRender {
                             if (it !== bmp) bmp.recycle()
                         }
                     } else bmp
-                    val d = android.graphics.drawable.BitmapDrawable(ctx.resources, finalBmp).apply {
-                        setBounds(0, 0, finalBmp.width, finalBmp.height)
+                    // 把 60% 透明度烘焙进位图像素：
+                    // 直接给 Drawable 设 alpha 在部分机型与 ImageSpan 组合会渲染成空白
+                    val faded = Bitmap.createBitmap(
+                        finalBmp.width, finalBmp.height, Bitmap.Config.ARGB_8888)
+                    android.graphics.Canvas(faded).drawBitmap(
+                        finalBmp, 0f, 0f, android.graphics.Paint().apply { alpha = 153 })
+                    if (faded !== finalBmp) finalBmp.recycle()
+                    val d = android.graphics.drawable.BitmapDrawable(ctx.resources, faded).apply {
+                        setBounds(0, 0, faded.width, faded.height)
                     }
                     sb.setSpan(ImageSpan(d, ImageSpan.ALIGN_CENTER),
                         start, start + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rv: RecyclerView
     private lateinit var adapter: BankAdapter
     private var sessionList: List<Session> = emptyList()
+    private var savedPos = -1      // 离开时第一个可见项
+    private var savedOffset = 0    // 其顶部偏移
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,11 +66,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() { super.onResume(); loadData() }
 
+    override fun onPause() {
+        super.onPause()
+        val lm = rv.layoutManager as? LinearLayoutManager ?: return
+        val p = lm.findFirstVisibleItemPosition()
+        if (p >= 0) {
+            savedPos = p
+            savedOffset = lm.getChildAt(0)?.top ?: 0
+        }
+    }
+
     private fun loadData() {
         sessionList = SessionManager.listSessions(this)
         adapter.notifyDataSetChanged()
         findViewById<View>(R.id.tvHint).visibility =
             if (sessionList.isEmpty()) View.VISIBLE else View.GONE
+        // 恢复离开时的滚动位置
+        if (savedPos >= 0 && sessionList.isNotEmpty()) {
+            val p = savedPos.coerceAtMost(sessionList.size - 1)
+            rv.post {
+                (rv.layoutManager as? LinearLayoutManager)
+                    ?.scrollToPositionWithOffset(p, savedOffset)
+            }
+        }
     }
 
     private fun showDirPicker() {

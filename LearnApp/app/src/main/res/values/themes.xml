@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.LearnApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/page_bg</item>
-        <item name="android:statusBarColor">@color/wechat_green</item>
+        <item name="android:statusBarColor">@color/list_bg</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
